@@ -20,6 +20,6 @@ let randItem = Object.keys(equip)[Math.round(Math.random(Object.keys(equip).leng
 console.log(randItem)
 console.log(equip[randItem])
 
-inventory.push()
+inventory[randItem].push(equip[randItem])
 console.log(inventory)
 
