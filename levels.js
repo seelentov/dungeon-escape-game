@@ -66,12 +66,13 @@ const levels = {
   },
   4:{
     descbegin:`\n${yourName} зашел в комнату. На вид - обычная оружейная, но вот только выглядела она так, будто кто то в спешке решил ее всю обобрать.\nОсмотревшись он увидел, что на стойке у входа лежало.\n "Лишним не будет" - подумал ${yourName}\n`,
-    descops:'1.Взять предмет /  2.Идти дальше\n',
+    descops:'1.Взять  /  2.Идти дальше\n',
     options:{
       '1'(){
         console.log('Вы взяли экипировку и положили в свой инвентарь\n')
-        inv.inventory.push(Object.keys(inv.equip)[Math.round(Math.random() * (Object.keys(inv.equip).length - 1) + 1)-1])
-        console.log('РЮКЗАК: +2 КЛЮЧ\n')
+        let randItem = Object.keys(inv.equip)[Math.round(Math.random(Object.keys(inv.equip).length) * (Object.keys(inv.equip).length - 1) + 1)-1]
+        inv.inventory.push(inv.equip[randItem])
+        console.log('\n')
       },
       '2'(){
         console.log(`\n${yourName} пошел в следующую комнату и на его пути возник монстр...\n`);

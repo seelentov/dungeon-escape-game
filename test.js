@@ -1,9 +1,25 @@
-var inv = require("./inventory.js");
+var inventory = {
+  'Зелье здоровья': 2,
+  }
+
+var equip ={
+  'Обычный меч':{
+    'Урон': 10,
+    'Описание': 'Обычный мечь. Дешево и сердито'
+  },
+  'Обычная броня':{
+    'Урон': 10,
+    'Описание': 'Обычный мечь. Дешево и сердито'
+  }
+}
+
+let randItem = Object.keys(equip)[Math.round(Math.random(Object.keys(equip).length) * (Object.keys(equip).length - 1) + 1)-1]
 
 
-let randCount = Math.round(Math.random() * (3 - 1) + 1)
-        let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
-        
-console.log(randCount)
+
 console.log(randItem)
-console.log(Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1)
+console.log(equip[randItem])
+
+inventory.push(equip[randItem])
+console.log(inventory)
+
