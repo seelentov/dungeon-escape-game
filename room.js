@@ -10,15 +10,17 @@ const Room = class {
   startroom(){
     console.log(this.descbegin)
     let choose = readlineSync.question(this.descops);
-    if(choose === 'Меню'){const chooseMenu = readlineSync.question('\n1.Рюкзак  2.Статус\n');
-    chooseMenu === '1' ? console.log(inv.checkInv()) :
+    if(choose === 'M'){const chooseMenu = readlineSync.question('\n1.Рюкзак  2.Статус\n');
+    chooseMenu === '1' ? console.log(inv.useInv()) :
     chooseMenu === '2' ? console.log(stats.stats) :
-    console.log('Назад');
+    console.log('\nВыход из меню\n');
     this.startroom()
   }
+  else{
     if(this.options.hasOwnProperty(choose)) return this.options[choose]()
-    else{console.log('Неверный ввод!'); this.startroom()}
+    else{console.log('\nНеверный ввод!\n'); this.startroom()}
   }
+}
   
 }
 module.exports = Room;

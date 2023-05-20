@@ -11,14 +11,19 @@ console.log("- Создать систему крит. урона, брони\n"
 console.log("- Перенести игру на интерфейс HTML документа\n\n")
 console.log("*- Дополнить игру множеством разных противников, комнат, предметов и оружия\n")
 console.log("*- Добавить концовку/концовки\n\n\n")
+console.log("МАНУАЛ: Управление в игре осуществляется выбором действий, введя цифру.\nКоманды:\n 1)M - открытие меню \n")
+//2)U+(Номер предмета) - использовать предмет \n3)E+(Номер предмета) - экипировать предмет")
+
 
 
 /** Exports */
 var Room = require("./room.js");
 var levels = require("./levels.js");
 
+
+//Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)
 for(;;){
-  const newroom = Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)
+  const newroom = 4
   const startlv = new Room(levels[newroom].descbegin, levels[newroom].descops, levels[newroom].options)
   console.log(startlv.startroom())
   }
