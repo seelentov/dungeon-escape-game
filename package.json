@@ -1,0 +1,22 @@
+{
+  "name": "test-object",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "module",
+    "url": "git+https://github.com/seelentov/test-object.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seelentov/test-object/issues"
+  },
+  "homepage": "https://github.com/seelentov/test-object#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
