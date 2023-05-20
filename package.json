@@ -18,5 +18,8 @@
   "homepage": "https://github.com/seelentov/test-object#readme",
   "dependencies": {
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
   }
 }

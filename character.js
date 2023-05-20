@@ -1,8 +1,5 @@
-const Body = class {
-  constructor(name){
-    this.name=name
-    this.hp=100
+const stats = {
+    'Имя': 'Геральд',
+    'HP': 100,
   }
-}
-
-module.exports = Body;
+module.exports.stats = stats;

@@ -1,10 +1,20 @@
-
-const Inventory = class{
-  constructor(){
-    this.potions = 2;
-    this.apples = 0;
-    this.keys = 0;
+var inventory = {
+  ['Зелье здоровья']: 2,
   }
+
+
+module.exports.inventory = inventory;
+
+var items ={
+'Зелье здоровья':'Восстанавливает вашему герою 20 HP',
+'Ключ':'Открывает СУНДУКИ',
+}
+module.exports.items = items;
+
+var checkInv = () => {
+  console.log(inventory);
 }
 
-module.exports = Inventory;
+module.exports.checkInv = checkInv;
+
+

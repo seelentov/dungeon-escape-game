@@ -1,45 +1,82 @@
-/**Экспорты */
 var readlineSync = require('readline-sync');
-var name = require("./main.js");
-var Inventory = require("./inventory.js");
-var Body = require("./character.js");
+var stats = require("./character.js");
+var inv = require("./inventory.js");
 
-/**Создание нового героя */
-const inv = new Inventory;
-const status = new Body(name);
 
-const levels ={
-  
-  1(){
-    console.log(`\nВы зашли в комнату. Перед вами странный сундук и проход дальше. Открыть или идти дальше?\n`)
-    const action = readlineSync.question("\nОткрыть сундук  /  Идти дальше\n").trim().toLowerCase();
-  
-    if(action === '1'){console.log('\nСундук оказался притаившимся мимиком. Одной жертвой этого замка больше...\n Вы умерли!\n'); 
-    process.exit()}
+var name = readlineSync.question('\nЧтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
+if(name !== '') stats.stats['Имя'] = name;
+let yourName = stats.stats['Имя']
+let backpack = inv.inventory
+
+const levels = {
+  1:{
     
-    else if (action === '2') {console.log('\nВы пошли дальше по коридору\n'); 
-    console.log(this[Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)]())}
-
-    else{console.log('\nНеверный ввод\n'); console.log(this['1']())}
-  },
-
-  2(){
-    console.log("\nВы зашли в комнату. Перед вами ржавая лесница наверх и явно ненадежная лесница в подвал\n")
-    const action = readlineSync.question("Наверх   В подвал\n").trim().toLowerCase();
-  
-    if(action === '1'){console.log('Вы пошли дальше!\n'); 
-    console.log(this[Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)]())}
-
-    else if (action === '2') {console.log('\nЛесница вниз действительно оказалась ненадежной и сломалась под вашим весом. Вы падаете на пол.\n'); 
-    status.hp -= 50
-    console.log(`-50 HP. HP: ${status.hp}/100\n`)
-    if (status.hp < 1) {{console.log('\nВы умерли!\n'); 
-    process.exit()}}
-    console.log(this[Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)]())
+    descbegin:`\n${yourName} зашел в комнату. Перед ним странный СУНДУК и проход в следующую КОМНАТУ. Открыть СУНДУК или идти дальше?\n`,
+    descops:'\n1.Открыть сундук  /  2.Идти дальше  \n',
+    options:{
+      
+      '1'(){
+        console.log('\nСУНДУК оказался притаившимся мимиком. Одной жертвой этого подземелья стало больше...\n Вы умерли!\n'); 
+    process.exit()
+      },
+      '2'(){
+        console.log('\nВы пошли дальше по коридору\n');
+      }
     }
-  
-    else{console.log('\nНеверный ввод\n');console.log(this['2']())}
-    },
+  },
+  2:{
+    descbegin:`\n${yourName} зашел в комнату. Перед ним ржавая лесница НАВЕРХ и явно ненадежная лесница в ПОДВАЛ\n`,
+    descops:'1.Наверх  /  2.В подвал\n',
+    options:{
+      '1'(){
+        console.log('Вы пошли дальше!\n')
+      },
+      '2'(){
+        console.log('\nЛесница в ПОДВАЛ действительно оказалась ненадежной и сломалась под вашим весом. Вы ПАДАЕТЕ на пол.\n');
+        stats.stats['HP'] -= 50;
+        console.log(`-50 HP. HP: ${stats.stats['HP']}/100\n`);
+        if (health < 1) {console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}
+      }
+    }
+  },
+  3:{
+    descbegin:`\n${yourName} зашел в комнату. С сундуком и ключом, который лежал рядом.\n`,
+    descops:'1.Идти дальше  /  2.Взять ключ и открыть сундук\n',
+    options:{
+      '2'(){
+        console.log('Вы открыли сундук и нашли там 2 КЛЮЧА! Интересный менеджмент ресурсов от прошлого хозяина...\n')
+        backpack['КЛЮЧ'] ? backpack['КЛЮЧ'] += 2 : backpack['КЛЮЧ'] = 2
+        console.log('РЮКЗАК: +2 КЛЮЧ\n')
+      },
+      '1'(){
+        console.log(`\n${yourName} прошел дальше, но не заметили маленькой лезки под своими ногами и...\n`);
+        console.log('\nНичего не произошло?? Странно.. Скоро буду! *рассказчик ушел кое что уточнить у копирайтера*\n');
+        console.log('\n..но сверху, в связи с движением лески, упало 2 кирпича! Ай!\n');
+        stats.stats['HP'] -= 12;
+        console.log(`-12 HP. HP: ${stats.stats['HP']}/100\n`);
+        if (health < 1) {console.log('\nВы умерли! ...от кирпича\n'); process.exit()}
+      }
+    }
+  }/** ,
+  50:{
+    descbegin:`\n${status.name} вдруг заметил ВЫХОД! 'ЭТО ОН?' - сказал ${status.name}, но счастье никогда не приходит так легко..\nВдруг ${status.name} почуствовал, как его застилает тень. Обернувшись он увидел огромного КРУШИТЕЛЯ(30/2000). Бегство или все таки бороться за победу, кторая так близка?`,
+    descops:'Сражаться  /  Убежать(шанс 70%)\n',
+    options:{
+      '1'(){
+        console.log('Вы победили крушителя и, уставшесь, движетесь к выходу!\n')
+        console.log('Уверен, у нашего героя все будет хорошо.\n')
+        console.log('История окончена, а мне лишь отстается сказать спасибо за тест моей поделки <3\n')
+        console.log('Надеюсь, что игра была увлекательна для Вас, а ее код натолкнет Вас на какие то мысли в Ваших проектах.\n')
+        console.log('Вопросы и предложения можете отправлять на мою личную почту komkov222111@gmail.com.\n')
+        console.log('Удачи и встретимся еще.\n'); process.exit()
+      },
+      '2'(){
+        console.log('\nВы убежали от противника, сверкая пятками..и...это было УДАЧНО!\n');
+        status.hp -= 50;
+        console.log(`-50 HP. HP: ${status.hp}/100\n`);
+        if (status.hp < 1) {console.log('\nВы умерли!\n')}
+      }
+    }
+  }*/
 }
-
 module.exports = levels;
