@@ -1,0 +1,25 @@
+{
+  "name": "dungeon-escape-game",
+  "version": "0.4.0",
+  "description": "Приветствую! Меня зовут Vladisluw и это мой первый проект!\nВ данной игре ты будешь ходить по комнатам подземелия в поисках выхода, участвовать в событиях, сражаться, \nсобирать предметы и находить им применение в будущем, с одной целью - сбежать из этого подземелия\nЧасть игры еще в разработке и много вещей не имеет реализации. Следи за обновлениями"
+  ,"main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "module",
+    "url": "git+https://github.com/seelentov/dungeon-escape-game"
+  },
+  "author": "Vladisluw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seelentov/dungeon-escape-game/issues"
+  },
+  "homepage": "https://github.com/seelentov/dungeon-escape-game#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
+  }
+}
