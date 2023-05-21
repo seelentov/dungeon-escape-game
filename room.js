@@ -12,8 +12,9 @@ const Room = class {
     let choose = readlineSync.question(this.descops);
     if(choose === 'M'){const chooseMenu = readlineSync.question('\n1.Рюкзак  2.Статус\n');
     chooseMenu === '1' ? console.log(inv.useInv()) :
-    chooseMenu === '2' ? console.log(stats.stats) :
+    chooseMenu === '2' ? console.log(stats.checkStat()) :
     console.log('\nВыход из меню\n');
+    readlineSync.question('Продолжить?')
     this.startroom()
   }
   else{

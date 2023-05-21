@@ -1,6 +1,8 @@
 var readlineSync = require('readline-sync');
 var stats = require("./character.js");
 var inv = require("./inventory.js");
+var Fight = require('./figth.js')
+var enemies = require('./enemies.js')
 
 
 var name = readlineSync.question('\nЧтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
@@ -36,7 +38,7 @@ const levels = {
         let randDmg = Math.round(Math.random() * (50 - 35) + 35)
         console.log('\nЛестница в ПОДВАЛ действительно оказалась ненадежной и сломалась под вашим весом. Вы ПАДАЕТЕ на пол.\n');
         stats.stats['HP'] -= randDmg;
-        console.log(`${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
+        console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
         if (stats.stats['HP'] < 1) {console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}
         return ''
       }
@@ -61,29 +63,33 @@ const levels = {
         console.log('\nНичего не произошло?? Странно.. Скоро буду! *рассказчик ушел кое что уточнить у копирайтера*\n');
         console.log('\n..но сверху, в связи с движением лески, упало 2 кирпича! Ай!\n');
         stats.stats['HP'] -= randDmg;
-        console.log(`${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
+        console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
         if (stats.stats['HP'] < 1) {console.log('\nВы умерли! ...от кирпича\n'); process.exit()}
         return ''
       }
     }
   },
-  /**4:{
-    descbegin:`\n${yourName} зашел в комнату. На вид - обычная оружейная, но вот только выглядела она так, будто кто то в спешке решил ее всю обобрать.\nОсмотревшись он увидел, что на стойке у входа лежало.\n "Лишним не будет" - подумал ${yourName}\n`,
+  4:{
+    descbegin:`\n${yourName} зашел в комнату. На вид - обычная оружейная, но вот только выглядела она так, будто кто то в спешке решил ее всю обобрать.\nОсмотревшись он увидел, что на стойке у входа лежало оружие.\n "Лишним не будет" - подумал ${yourName}\n`,
     descops:'1.Взять  /  2.Идти дальше\n',
     options:{
       '1'(){
-        console.log('Вы взяли экипировку и положили в свой инвентарь\n')
         let randItem = Object.keys(inv.equip)[Math.round(Math.random(Object.keys(inv.equip).length) * (Object.keys(inv.equip).length - 1) + 1)-1]
-        inv.inventory.push(inv.equip[randItem])
-        console.log('\n')
+        console.log(`\nНа стойке лежал ${randItem}`)
+        if (!inv.inventory.hasOwnProperty(randItem)) {
+          inv.inventory[randItem] = (inv.equip[randItem])
+        return `\nРЮКЗАК: ${randItem} добавлен в рюкзак\n`}
+        return (`${yourName} уже имеет ${randItem} в своем рюкзаке, поэтому он решил оставить это там, где оно лежало\n`)
       },
       '2'(){
         console.log(`\n${yourName} пошел в следующую комнату и на его пути возник монстр...\n`);
-      }
+          let randEnemy = Math.round(Math.random(enemies.length) * (enemies.length - 1) + 1)-1
+          let newEnemy = new Fight(...enemies[randEnemy])
+          return newEnemy.startFight()}
     }
   },
    
-  50:{
+  /**50:{
     descbegin:`\n${status.name} вдруг заметил ВЫХОД! 'ЭТО ОН?' - сказал ${status.name}, но счастье никогда не приходит так легко..\nВдруг ${status.name} почуствовал, как его застилает тень. Обернувшись он увидел огромного КРУШИТЕЛЯ(30/2000). Бегство или все таки бороться за победу, кторая так близка?`,
     descops:'Сражаться  /  Убежать(шанс 70%)\n',
     options:{
