@@ -4,44 +4,42 @@ var inv = require("./inventory.js");
 var Fight = require('./figth.js')
 var enemies = require('./enemies.js')
 
-
-const goodChest = () =>{
-        let randCount = Math.round(Math.random() * (3 - 1) + 1)
-        let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
-        console.log(`\n${stats.stats['Имя']} открыл сундук и нашел там: ${randItem}: ${randCount}! ${stats.stats['Имя']} пошел дальше...\n`)
-        inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
-        console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
-}
-
-const badChest = () =>{
-  console.log('\nСУНДУК оказался притаившимся мимиком. Одной жертвой этого подземелья стало больше...\n Вы умерли!\n'); 
-  process.exit()}
-
-
 const randomEnc = ()=>{
-    console.log(`\n${stats.stats['Имя']} пошел в следующую комнату и на его пути возник монстр...\n`);
+    console.log(`${stats.stats['Имя']} пошел в следующую комнату и на его пути возник монстр...\n`);
     let randEnemy = Math.round(Math.random(enemies.length) * (enemies.length - 1) + 1)-1
     let newEnemy = new Fight(...enemies[randEnemy])
     console.log(newEnemy.startFight())}
 
 
-var name = readlineSync.question('\nЧтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
+var name = readlineSync.question('Чтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
 if(name !== '') stats.stats['Имя'] = name;
 let yourName = stats.stats['Имя']
+console.clear();
 
 const levels = {
   1:{
     
     descbegin:`\n\n\n\n${yourName} зашел в комнату. Перед ним странный СУНДУК и проход в следующую КОМНАТУ. Открыть СУНДУК или идти дальше?\n`,
-    descops:'\n1.Открыть сундук  /  2.Идти дальше  \n',
+    descops:'1.Открыть сундук  /  2.Идти дальше  \n',
     options:{
       
       '1'(){
-        Math.round(Math.random() * (10 - 1) + 1) > 2 ? goodChest() : badChest()
-        return ''
+        const good = () =>{
+          let randCount = Math.round(Math.random() * (3 - 1) + 1)
+          let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
+          console.log(`${stats.stats['Имя']} открыл сундук и нашел там: ${randItem}: ${randCount}! ${stats.stats['Имя']} пошел дальше...\n`)
+          inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
+          console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
+  }
+  
+        const bad = () =>{
+          console.log('СУНДУК оказался притаившимся мимиком. Одной жертвой этого подземелья стало больше...\n Вы умерли!\n'); 
+          process.exit()}
+          Math.round(Math.random() * (10 - 1) + 1) > 2 ? good() : bad()
+          return ''
       },
       '2'(){
-        Math.round(Math.random() * (10 - 1) + 1) > 2 ? console.log('\nВы пошли дальше по коридору\n') : randomEnc();
+        Math.round(Math.random() * (10 - 1) + 1) > 2 ? console.log('Вы пошли дальше по коридору\n') : randomEnc();
         return ''
       }
     }
@@ -51,20 +49,27 @@ const levels = {
     descops:'1.Наверх  /  2.В подвал\n',
     options:{
       '1'(){
+        const good = () =>{
+          let randCount = Math.round(Math.random() * (3 - 1) + 1)
+          let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
+          console.log(`${stats.stats['Имя']} открыл сундук и нашел там: ${randItem}: ${randCount}! ${stats.stats['Имя']} пошел дальше...\n`)
+          inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
+          console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
+        }
         console.log(`\n${yourName} прошел наверх! В этой комнате был сундук!\n`)
-        inv.inventory['Ключ'] > 0 ? goodChest() : console.log(`\n${yourName} к сожалению не имеет ключа от СУНДУКА на данный момент! Грустный он пошел в следующую комнату\n`);
-        if (inv.inventory['Ключ'] < 0) inv.inventory['Ключ'] -= 1;
+        inv.inventory['Ключ'] > 0 ? good() : console.log(`${yourName} к сожалению не имеет ключа от СУНДУКА на данный момент! Грустный он пошел в следующую комнату\n`);
+        if (inv.inventory['Ключ'] > 0) inv.inventory['Ключ'] -= 1;
       },
       '2'(){
         let randDmg = Math.round(Math.random() * (50 - 35) + 35)
 
         
-        let good = () => {console.log('\nВы спустились в подвал');
+        let good = () => {console.log('Вы спустились в подвал\n');
         stats.stats['HP'] -= randDmg;
         console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
-        if (stats.stats['HP'] < 1) {console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}}
+        if (stats.stats['HP'] < 1) {console.log('Вы умерли! Как неаккуратно..\n'); process.exit()}}
 
-        let bad = () => {console.log('\nЛестница в ПОДВАЛ действительно оказалась ненадежной и сломалась под вашим весом. Вы падаете на пол.\n');
+        let bad = () => {console.log('Лестница в ПОДВАЛ действительно оказалась ненадежной и сломалась под вашим весом. Вы падаете на пол.\n');
         stats.stats['HP'] -= randDmg;
         console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
         if (stats.stats['HP'] < 1) {console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}}
@@ -82,12 +87,12 @@ const levels = {
         let good = () =>{
         let randCount = Math.round(Math.random() * (3 - 1) + 1)
         let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
-        console.log(`\nВы открыли сундук и нашли там: ${randItem}: ${randCount}!\n`)
+        console.log(`Вы открыли сундук и нашли там: ${randItem}: ${randCount}!\n`)
         inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
         console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
         return ''}
         let bad = () =>{
-          console.log(`\nВы были очень аккуратны и уже почти забрали ключ. Но в комнату послышались шаги. Вы решаете аккуратно уйти, оставляя сундук нетроонутым\n`)
+          console.log(`Вы были очень аккуратны и уже почти забрали ключ. Но в комнату послышались шаги. Вы решаете аккуратно уйти, оставляя сундук нетроонутым\n`)
           if(Math.round(Math.random() * (10 - 1) + 1) > 4) return randomEnc()
         }
         
@@ -95,14 +100,27 @@ const levels = {
 
       },
       '1'(){
-        let randDmg = Math.round(Math.random() * (45 - 5) + 5)
-        console.log(`\n${yourName} прошел дальше, но не заметил маленькой лезки под своими ногами и...\n`);
-        console.log('\nНичего не произошло?? Странно.. Скоро буду! *рассказчик ушел кое что уточнить у копирайтера*\n');
-        console.log('\n..но сверху, в связи с движением лески, упало 2 кирпича! Ай!\n');
+        const good = () =>{let randDmg = Math.round(Math.random() * (45 - 5) + 5)
+        console.log(`${yourName} прошел дальше, но не заметил маленькой лезки под своими ногами и...\n`);
+        console.log(`сзади от ${yourName} открылся ящик, внутри которого лежало снаряжения бывшего жителя этой комнаты... Где он сейчас?\n`);
+        let randItem = Object.keys(inv.equip)[Math.round(Math.random(Object.keys(inv.equip).length) * (Object.keys(inv.equip).length - 1) + 1)-1]
+        console.log(`На стойке лежал ${randItem}. Следующая комната...`)
+        if (!inv.inventory.hasOwnProperty(randItem)) {
+        inv.inventory[randItem] = (inv.equip[randItem])
+        return `РЮКЗАК: ${randItem} добавлен в рюкзак\n`}
+        return (`${yourName} уже имеет ${randItem} в своем рюкзаке, поэтому он решил оставить это там, где оно лежало\n`)
+      
+      }
+        const bad = () =>{let randDmg = Math.round(Math.random() * (45 - 5) + 5)
+        console.log(`${yourName} прошел дальше, но не заметил маленькой лезки под своими ногами и...\n`);
+        console.log('Ничего не произошло?? Странно.. Скоро буду! *рассказчик ушел кое что уточнить у копирайтера*\n');
+        console.log('..но сверху, в связи с движением лески, упало 2 кирпича! Ай!\n');
         stats.stats['HP'] -= randDmg;
         console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
         if (stats.stats['HP'] < 1) {console.log('\nВы умерли! ...от кирпича\n'); process.exit()}
-        return ''
+        return ''}
+
+        return (Math.random() * (10 - 1) + 1) > 4 ? good():bad()
       }
     }
   },
@@ -112,10 +130,10 @@ const levels = {
     options:{
       '1'(){
         let randItem = Object.keys(inv.equip)[Math.round(Math.random(Object.keys(inv.equip).length) * (Object.keys(inv.equip).length - 1) + 1)-1]
-        console.log(`\nНа стойке лежал ${randItem}. Следующая комната...`)
+        console.log(`На стойке лежал ${randItem}. Следующая комната...\n`)
         if (!inv.inventory.hasOwnProperty(randItem)) {
-          inv.inventory[randItem] = (inv.equip[randItem])
-        return `\nРЮКЗАК: ${randItem} добавлен в рюкзак\n`}
+        inv.inventory[randItem] = (inv.equip[randItem])
+        return `РЮКЗАК: ${randItem} добавлен в рюкзак\n`}
         return (`${yourName} уже имеет ${randItem} в своем рюкзаке, поэтому он решил оставить это там, где оно лежало\n`)
       },
       '2'(){
@@ -124,13 +142,14 @@ const levels = {
   },
 },
   5:{
-    descbegin:`\n${yourName} вдруг заметил ВЫХОД! 'ЭТО ОН?' - сказал ${yourName}, но счастье никогда не приходит так легко..\nВдруг ${yourName} почуствовал, как его застилает тень. Обернувшись он увидел огромного КРУШИТЕЛЯ(30/2000). Бегство или все таки бороться за победу, кторая так близка?`,
-    descops:'Сражаться  /  Убежать(шанс 50%)\n',
+    descbegin:`\n\n\n\n${yourName} вдруг заметил ВЫХОД! 'ЭТО ОН?' - сказал ${yourName}, но счастье никогда не приходит так легко..\nВдруг ${yourName} почуствовал, как его застилает тень. Обернувшись он увидел огромного КРУШИТЕЛЯ(30/200). Бегство или все таки бороться за победу, которая так близка?\n`,
+    descops:'Сражаться  /  Попытаться убежать\n',
     options:{
       '1'(){
+        console.log('В любом случае... он уже близко\n')
         let newEnemy = new Fight(...enemies[5])
         newEnemy.startFight()
-
+        console.clear();
         console.log('Вы победили крушителя и, уставшесь, движетесь к выходу!\n')
         console.log('Уверен, у нашего героя все будет хорошо.\n')
         console.log('История окончена, а мне лишь отстается сказать спасибо за тест моей поделки <3\n')
@@ -140,12 +159,49 @@ const levels = {
       },
       '2'(){
         crushEnc = () =>{
-          let newEnemy = new Fight(...enemies[5])
-          console.log(newEnemy.startFight())
+        let newEnemy = new Fight(...enemies[5])
+        console.log(newEnemy.startFight())
         }
-        (Math.random() * (10 - 1) + 1) > 5 ? console.log('\nВы убежали от противника, сверкая пятками..и...это было УДАЧНО!\n') : crushEnc();
+        (Math.random() * (10 - 1) + 1) > 5 ? console.log('Вы убежали от противника, сверкая пятками..и...это было УДАЧНО!\n') : crushEnc();
       }
     }
   }
 }
 module.exports = levels;
+
+
+
+/**
+...:{
+    descbegin:`\n\n\n\n...\n',
+    descops:'...\n',
+    options:{
+      '1'(){
+        let good = () = {
+          
+
+          return ""
+        }
+        let bad = () = {
+        
+
+          return ""
+        }
+        return Math.random() * (10 - 1) + 1) > ... ? good : bad;
+      },
+      '2'(){
+        let good = () = {
+          
+
+          return ""
+        }
+        let bad = () = {
+        
+
+          return ""
+        }
+        return Math.random() * (10 - 1) + 1) > ... ? good : bad;
+      }
+    }
+  }
+*/

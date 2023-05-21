@@ -23,13 +23,13 @@ const Fight = class{
     console.log(`${stats.stats['Имя']} наносит ${this.enName} ${heroDMG} урона\n`)
     this.enHP -= heroDMG
     console.log(`${stats.stats['Имя']}: ${stats.stats['HP']}           ${this.enName}: ${this.enHP} HP\n\n`)
-    if(this.enHP < 1) {console.log(`${this.enName} был повержен\n`); return ''}
+    if(this.enHP < 1) {console.log(`${this.enName} был повержен\n`); process.exit()}
     console.log(`${this.enName} наносит ${stats.stats['Имя']} ${enDMG-heroBlockDMG} урона! Заблокированно ${heroBlockDMG} урона\n`)
     stats.stats['HP'] -= enDMG
     console.log(`${stats.stats['Имя']}: ${stats.stats['HP']}           ${this.enName}: ${this.enHP} HP\n\n`)
     if(stats.stats['HP'] < 1) {console.log(`${stats.stats['Имя']} погиб в бою с ${this.enName}\n`); process.exit()}
   }};
-  runGood = () =>{
+  runGood(){
   console.log(`${stats.stats['Имя']} избежал боя`)
   return ''
   }

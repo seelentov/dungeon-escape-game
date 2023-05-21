@@ -84,7 +84,7 @@ var equip ={
 module.exports.equip = equip;
 
 var checkInv = () => {
-  console.log(`\n\n\n\n\n\n\n\n\n\n\n==================РЮКЗАК==================`)
+  console.log(`==================РЮКЗАК==================\n`)
   let n=1
   for(let i in inventory){
     equip.hasOwnProperty(i) === true && equip[i].type == 'weapon'?console.log(`${n})${i}: ${equip[i].stt} АТК\n"${equip[i]['Описание']}"\n`):
@@ -92,16 +92,17 @@ var checkInv = () => {
     console.log(`${n})${i}: ${inventory[i]}\n"${items[i].desc}"\n`)
     n++
   }
-  console.log(`==========================================`)
+  console.log(`==========================================\n`)
 }
 
 var useInv = () => {
+  console.clear();
   checkInv();
   let choose = readlineSync.question(`\nНомер предмета в списке - использовать. Любое другой ввод - выход из рюкзака: `)
   if (choose > Object.keys(inventory).length || choose < 1) return '\nВыход из рюкзака\n'
   let curItem = Object.keys(inventory)[choose-1]
   if(equip.hasOwnProperty(curItem) && equip[curItem].type == 'weapon') {
-    if(stats.stats.weapon.name !== 'Пусто') {inventory[stats.stats.weapon.name] = {...equip[stats.stats.weapon.name]}}
+    if(stats.stats.weapon.name !== 'Пусто') {inventory[stats.stats.weapon.name] = {...equip[stats.stats.weapon.name]}};
     stats.stats.weapon = {name: curItem, stt: equip[curItem].stt}
     console.log(`${curItem} теперь на вашем персонаже`)
     delete inventory[curItem] 
@@ -112,7 +113,7 @@ var useInv = () => {
     console.log(`${curItem} теперь на вашем персонаже`)
     delete inventory[curItem]
   }
-  else{items[curItem].use()};
+  else if(items.hasOwnProperty(curItem)) items[curItem].use();
   return ''
 }
 
