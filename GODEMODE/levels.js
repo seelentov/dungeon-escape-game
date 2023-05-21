@@ -11,8 +11,7 @@ const randomEnc = ()=>{
     console.log(newEnemy.startFight())}
 
 
-var name = readlineSync.question('Чтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
-if(name !== '') stats.stats['Имя'] = name;
+var name = readlineSync.question('Чтобы начать игру нажмите Enter\n');
 let yourName = stats.stats['Имя']
 console.clear();
 

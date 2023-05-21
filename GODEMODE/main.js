@@ -1,3 +1,5 @@
+var readlineSync = require('readline-sync');
+
 /**Main */
 console.log("Приветствую! Меня зовут Vladisluw и это мой первый проект!\n") 
 console.log('В данной игре ты будешь ходить по комнатам подземелия в поисках выхода, участвовать в событиях, сражаться, \nсобирать предметы и находить им применение в будущем, с одной целью - сбежать из этого подземелия\n')
@@ -21,7 +23,7 @@ var levels = require("./levels.js");
 
 
 for(;;){
-  const newroom = 1
+  const newroom = readlineSync.question(`ВЫБОР УРОВНЯ. 1 - ${Object.keys(levels).length}`)
   const startlv = new Room(levels[newroom].descbegin, levels[newroom].descops, levels[newroom].options)
   console.log(startlv.startroom())
   }

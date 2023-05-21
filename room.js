@@ -10,48 +10,6 @@ const Room = class {
   this.descops=descops,
   this.options=options}
   startroom(){
-    let someSecretStuff = () => {
-      console.log(`${stats.stats['Имя']} зашел в комнату и...\n`);
-      console.log(`n": "0.4.0",\n
-      "license": "ISC",\n
-      "dependencies": {
-        "readline-sync": "^1.4.10"\n
-      },\n
-      "devDependencies": {\n
-        "esm": "^3.2.25"\n
-      }\n
-    },\n
-    "node_modules/esm": {\n
-      "version": "3\n`);
-      console.log(`n": "0.4.0",\n
-      "license": "ISC",\n
-      "dependencies": {
-        "readline-sync": "^1.4.10"\n
-      },\n
-      "devDependencies": {\n
-        "esm": "^3.2.25"\n
-      }\n
-    },\n
-    "node_modules/esm": {\n
-      "version": "3\n`);
-      console.log(`n": "0.4.0",\n
-      "license": "ISC",\n
-      "dependencies": {
-        "readline-sync": "^1.4.10"\n
-      },\n
-      "devDependencies": {\n
-        "esm": "^3.2.25"\n
-      }\n
-    },\n
-    "node_modules/esm": {\n
-      "version": "3\n`);
-      console.log(`ЧТО?? КАК ТЫ СЮДА ПОПАЛ? ТЫ НЕ ДОЛЖЕН ЗДЕСЬ НАХОДИТЬСЯ!!\n`);
-      for(let i=0;i<20;i++){
-      console.log(`============================= Внимание! Субьект ПОКИНУЛ симуляцию =============================\n`);
-      console.log(`===================================== СОЕДИНЕНИЕ ПОТЕРЯНО =====================================\n`);
-      }
-      process.exit()
-    }
     if (Math.round(Math.random() * (1000 - 1) + 1) === 1) console.log(someSecretStuff())
     console.log(this.descbegin)
     let choose = readlineSync.question(this.descops);
@@ -74,6 +32,68 @@ const Room = class {
 //}
 module.exports = Room;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var someSecretStuff = () => {
+  console.log(`${stats.stats['Имя']} зашел в комнату и...\n`);
+  console.log(`n": "0.4.0",\n
+  "license": "ISC",\n
+  "dependencies": {
+    "readline-sync": "^1.4.10"\n
+  },\n
+  "devDependencies": {\n
+    "esm": "^3.2.25"\n
+  }\n
+},\n
+"node_modules/esm": {\n
+  "version": "3\n`);
+  console.log(`n": "0.4.0",\n
+  "license": "ISC",\n
+  "dependencies": {
+    "readline-sync": "^1.4.10"\n
+  },\n
+  "devDependencies": {\n
+    "esm": "^3.2.25"\n
+  }\n
+},\n
+"node_modules/esm": {\n
+  "version": "3\n`);
+  console.log(`n": "0.4.0",\n
+  "license": "ISC",\n
+  "dependencies": {
+    "readline-sync": "^1.4.10"\n
+  },\n
+  "devDependencies": {\n
+    "esm": "^3.2.25"\n
+  }\n
+},\n
+"node_modules/esm": {\n
+  "version": "3\n`);
+  console.log(`ЧТО?? КАК ТЫ СЮДА ПОПАЛ? ТЫ НЕ ДОЛЖЕН ЗДЕСЬ НАХОДИТЬСЯ!!\n`);
+  for(let i=0;i<20;i++){
+  console.log(`============================= Внимание! Субьект ПОКИНУЛ симуляцию =============================\n`);
+  console.log(`===================================== СОЕДИНЕНИЕ ПОТЕРЯНО =====================================\n`);
+  }
+  process.exit()
+}
 
 
 

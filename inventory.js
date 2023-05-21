@@ -2,11 +2,7 @@ var readlineSync = require('readline-sync');
 var stats = require("./character.js");
 
 var inventory = {
-  'Зелье здоровья': 200,
-  'Ключ': 200,
-  'Яд': 200,
-  'Сундучок со снаряжением': 200,
-  'Сундучок с предметом': 200,
+  'Зелье здоровья': 2
   }
 
 
@@ -53,8 +49,9 @@ var items ={
       console.log(`\n\n\n\n\n\n\n___________________ КОНЦОВКА: "КОВАРНАЯ ЖАДНОСТЬ" \n\n\n\n\n\n\n___________________\n${stats.stats['Имя']} погиб от ловушки, установленной в сундучке`);
       process.exit()
     }
-    let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки! ${stats.stats['HP']}/100 HP\n`);
+    let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!\n`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
+    console.log(`-15 HP: ${stats.stats['HP']}/100`)
   }
     let fortune = () =>{
     let randItem = Object.keys(equip)[Math.round(Math.random(Object.keys(equip).length) * (Object.keys(equip).length - 1) + 1)-1]
@@ -79,7 +76,7 @@ var items ={
     }
     let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
-    console.log(`- 15 HP / ${stats.stats['HP']}/100\n`)
+    console.log(`-15 HP: ${stats.stats['HP']}/100`)
   }
     let fortune = () =>{
       let randCount = Math.round(Math.random() * (3 - 1) + 1)

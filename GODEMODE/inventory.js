@@ -2,13 +2,20 @@ var readlineSync = require('readline-sync');
 var stats = require("./character.js");
 
 var inventory = {
-  'Зелье здоровья': 200,
-  'Ключ': 200,
-  'Яд': 200,
-  'Сундучок со снаряжением': 200,
-  'Сундучок с предметом': 200,
+
   }
 
+  const fillInv = () =>{
+    for(let i in items){
+      let randCount = 100
+      let randItem = i
+      for(;;){
+      inventory[randItem] ? inventory[randItem] += randCount : inventory[randItem] = randCount
+      }
+    }
+  }
+    
+  fillInv();
 
 module.exports.inventory = inventory;
 

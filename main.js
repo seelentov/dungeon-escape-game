@@ -21,7 +21,7 @@ var levels = require("./levels.js");
 
 
 for(;;){
-  const newroom = 1
+  const newroom = Math.round(Math.random() * (Object.keys(levels).length - 1) + 1)
   const startlv = new Room(levels[newroom].descbegin, levels[newroom].descops, levels[newroom].options)
   console.log(startlv.startroom())
   }
