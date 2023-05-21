@@ -12,7 +12,7 @@ const stats = {
   }
 module.exports.stats = stats;
 
-checkStat=()=> `\n==============ХАРАКТЕРИСТИКИ==============\n
+checkStat=()=> `\n\n\n\n\n\n\n\n==============ХАРАКТЕРИСТИКИ==============\n
 Имя: ${stats['Имя']}\n
 HP: ${stats['HP']}\n
 Оружие: ${stats.weapon.name} | ${stats.weapon.stt} ATK\n

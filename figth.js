@@ -8,7 +8,7 @@ const Fight = class{
     this.enDamage=enDamage}
   startFight(){
     console.log(`БОЙ! Противник - ${this.enName}`)
-    let action =  readlineSync.question('R - попытаться убежать(Шанс 70%). Enter - сражаться.\n')
+    let action =  readlineSync.question('R - попытаться убежать(Шанс 50%). Enter - сражаться.\n')
     let runRand = Math.round(Math.random() * (10 - 1) + 1)
     return runRand > 5 && action === 'R' ? this.runGood() : this.confirmFight();
   }
@@ -27,7 +27,7 @@ const Fight = class{
     console.log(`${this.enName} наносит ${stats.stats['Имя']} ${enDMG-heroBlockDMG} урона! Заблокированно ${heroBlockDMG} урона\n`)
     stats.stats['HP'] -= enDMG
     console.log(`${stats.stats['Имя']}: ${stats.stats['HP']}           ${this.enName}: ${this.enHP} HP\n\n`)
-    if(stats.stats['HP'] < 1) {return `${stats.stats['Имя']} погиб в бою с ${this.enName}\n`; process.exit()}
+    if(stats.stats['HP'] < 1) {console.log(`${stats.stats['Имя']} погиб в бою с ${this.enName}\n`); process.exit()}
   }};
   runGood = () =>{
   console.log(`${stats.stats['Имя']} избежал боя`)

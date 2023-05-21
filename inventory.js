@@ -12,7 +12,7 @@ var items ={
 'Зелье здоровья':{
   desc:'Восстанавливает вашему герою 30 HP',
   use(){
-    stats.stats['HP'] < 100 ? stats.stats['HP'] += 30 :
+    (stats.stats['HP'] + 30) < 100 ? stats.stats['HP'] += 30 :
     stats.stats['HP'] = 100;
     inventory['Зелье здоровья'] -= 1
     if (inventory['Зелье здоровья'] < 1) delete inventory['Зелье здоровья']
@@ -84,7 +84,7 @@ var equip ={
 module.exports.equip = equip;
 
 var checkInv = () => {
-  console.log(`==================РЮКЗАК==================`)
+  console.log(`\n\n\n\n\n\n\n\n\n\n\n==================РЮКЗАК==================`)
   let n=1
   for(let i in inventory){
     equip.hasOwnProperty(i) === true && equip[i].type == 'weapon'?console.log(`${n})${i}: ${equip[i].stt} АТК\n"${equip[i]['Описание']}"\n`):
@@ -113,6 +113,7 @@ var useInv = () => {
     delete inventory[curItem]
   }
   else{items[curItem].use()};
+  return ''
 }
 
 module.exports.useInv = useInv;

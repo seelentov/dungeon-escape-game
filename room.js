@@ -1,6 +1,8 @@
 var readlineSync = require('readline-sync');
 var inv = require('./inventory.js')
 var stats = require("./character.js");
+var figth = require('./figth.js')
+var enemies = require('./enemies.js')
 
 const Room = class {
   constructor(descbegin,descops,options){
@@ -19,11 +21,11 @@ const Room = class {
   }
   else{
     if(this.options.hasOwnProperty(choose)) return this.options[choose]()
-    else{console.log('\nНеверный ввод!\n'); this.startroom()}
+    else{console.log('\nНеверный ввод!\n'); this.startroom(); this.randomEnc()}
   }
 }
-  
 }
+//}
 module.exports = Room;
 
 
