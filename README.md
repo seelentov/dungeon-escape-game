@@ -13,6 +13,5 @@
 *- Дополнить игру множеством разных противников, комнат, предметов и оружия
 *- Добавить концовку/концовки
 
-Демонcтрация:
 ![image](https://github.com/seelentov/dungeon-escape-game/blob/main/demo.gif)
 
