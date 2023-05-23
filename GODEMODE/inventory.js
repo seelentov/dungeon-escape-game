@@ -2,7 +2,7 @@ var readlineSync = require('readline-sync');
 var stats = require("./character.js");
 
 var inventory = {
-
+  
   }
 
   const fillInv = () =>{
@@ -24,6 +24,18 @@ var items ={
   use(){
     (stats.stats['HP'] + 30) < 100 ? stats.stats['HP'] += 30 :
     stats.stats['HP'] = 100;
+    inventory['Зелье здоровья'] -= 1
+    if (inventory['Зелье здоровья'] < 1) delete inventory['Зелье здоровья']
+
+    console.log(`Зелье использованно \nHP: ${stats.stats['HP']}`)
+    return ' '
+  }
+  
+},
+'Зелье гиганта':{
+  desc:'Дает вашему герою 10 HP (Даже выше 100HP)',
+  use(){
+    stats.stats['HP'] += 10;
     inventory['Зелье здоровья'] -= 1
     if (inventory['Зелье здоровья'] < 1) delete inventory['Зелье здоровья']
 
