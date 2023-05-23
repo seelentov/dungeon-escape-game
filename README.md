@@ -13,8 +13,3 @@
 *- Дополнить игру множеством разных противников, комнат, предметов и оружия
 *- Добавить концовку/концовки
 
- <video width="400" height="300" controls="controls" poster="video/duel.jpg" autoplay
- loop>
-   <source src="demo.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-   Video не поддерживается вашим браузером. 
-  </video>
