@@ -18,12 +18,14 @@ var items ={
     if (inventory['Зелье здоровья'] < 1) delete inventory['Зелье здоровья']
 
     console.log(`Зелье использованно \nHP: ${stats.stats['HP']}`)
+    return ' '
   }
 },
 'Ключ':{
   desc:'Ключ для открытия СУНДУКОВ',
   use(){
     console.log('\nОтличный ключ, но без сундука пользы не имеет\n')
+    return ' '
   }
 },
 'Яд':{
@@ -40,6 +42,7 @@ var items ={
     if (inventory['Яд'] < 1) delete inventory['Яд']
 
     console.log(`Зелье использованно \nHP: ${stats.stats['HP']}`)
+    return ' '
   }
 },
 'Сундучок со снаряжением':{
@@ -65,6 +68,7 @@ var items ={
     (Math.round(Math.random(10) * (10 - 1) + 1)) > 5 ? console.log(fortune()) : console.log(unfort());
     inventory['Сундучок со снаряжением'] -= 1
     if (inventory['Сундучок со снаряжением'] < 1) delete inventory['Сундучок со снаряжением']
+    return ' '
   }
 },
 'Сундучок с предметом':{
