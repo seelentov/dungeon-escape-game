@@ -2,7 +2,7 @@ var readlineSync = require('readline-sync');
 var stats = require("./character.js");
 
 var inventory = {
-  'Зелье здоровья': 2
+  'Зелье здоровья': 2,
   }
 
 
@@ -55,11 +55,11 @@ var items ={
     let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!\n`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
     console.log(`-15 HP: ${stats.stats['HP']}/100`)
+    return ' '
   }
     let fortune = () =>{
     let randItem = Object.keys(equip)[Math.round(Math.random(Object.keys(equip).length) * (Object.keys(equip).length - 1) + 1)-1]
     console.log(`В сундучке лежал ${randItem}.\n`)
-    inventory['Сундучок со снаряжением'] -= 1
     if (!inventory.hasOwnProperty(randItem)) {
     inventory[randItem] = (equip[randItem])
     return `РЮКЗАК: ${randItem} добавлен в рюкзак\n`}
@@ -81,6 +81,7 @@ var items ={
     let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
     console.log(`-15 HP: ${stats.stats['HP']}/100`)
+    return ' '
   }
     let fortune = () =>{
       let randCount = Math.round(Math.random() * (3 - 1) + 1)
@@ -90,17 +91,31 @@ var items ={
       console.log(`${stats.stats['Имя']} открыл сундучок и нашел там: ${randItem}: ${randCount}!\n`)
       inventory[randItem] ? inventory[randItem] += randCount : inventory[randItem] = randCount
       console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
-      inventory['Сундучок с предметом'] -= 1}
-      return ''
+      }
+      return ' '
       }
       }
 
     (Math.round(Math.random(10) * (10 - 1) + 1)) > 5 ? console.log(fortune()) : console.log(unfort());
     
     if (inventory['Сундучок с предметом'] < 1) delete inventory['Сундучок с предметом']
+    inventory['Сундучок с предметом'] -= 1
+    return ' '
   }
 }
 }
+
+/**,!'Назнание'!:{
+  desc: !'Описание'!,
+  use(){
+    
+    !Использование!
+
+    inventory[!'Название'!] -= 1
+    return ' '
+  }
+} */
+
 module.exports.items = items;
 
 var equip ={
@@ -167,7 +182,7 @@ var equip ={
   'Меч создателя':{
     type: 'weapon',
     stt: 71,
-    'Описание': 'Меч с гравиговкой "Спасибо за тест игры"'
+    'Описание': 'Меч с гравировкой "Спасибо за тест игры"'
   },
   'Обычная броня':{
     type: 'armor',
@@ -235,6 +250,11 @@ var equip ={
     'Описание': 'Броня с гравировкой "Спасибо за тест игры"'
   }
 }
+/**,!'Назнание'!:{
+  type: !тип!(меч тлт броня),
+  stt: !статы!(урон или защита),
+  'Описание': '!Описание брони!'
+} */
 module.exports.equip = equip;
 
 var checkInv = () => {
@@ -259,16 +279,19 @@ var useInv = () => {
     if(stats.stats.weapon.name !== 'Пусто') {inventory[stats.stats.weapon.name] = {...equip[stats.stats.weapon.name]}};
     stats.stats.weapon = {name: curItem, stt: equip[curItem].stt}
     console.log(`${curItem} теперь на вашем персонаже`)
+    
     delete inventory[curItem] 
+    return ' '
   }
   else if(equip.hasOwnProperty(curItem) && equip[curItem].type == 'armor') {
     if(stats.stats.armor.name !== 'Пусто') {inventory[stats.stats.armor.name] = {...equip[stats.stats.armor.name]}}
     stats.stats.armor = {name: curItem, stt: equip[curItem].stt}
     console.log(`${curItem} теперь на вашем персонаже`)
     delete inventory[curItem]
+    return ' '
   }
   else if(items.hasOwnProperty(curItem)) items[curItem].use();
-  return ''
+  return ' '
 }
 
 module.exports.useInv = useInv;

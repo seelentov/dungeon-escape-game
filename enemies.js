@@ -10,3 +10,6 @@ const enemies = [
 ]
 
 module.exports = enemies
+
+
+//[Имя противника,ХП,урон]

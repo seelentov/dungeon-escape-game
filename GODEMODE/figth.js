@@ -32,7 +32,7 @@ const Fight = class{
   }};
   runGood(){
   console.log(`${stats.stats['Имя']} избежал боя`)
-  return ''
+  return ' '
   }
 }
 

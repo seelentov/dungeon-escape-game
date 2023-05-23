@@ -9,13 +9,12 @@ var inventory = {
     for(let i in items){
       let randCount = 100
       let randItem = i
-      for(;;){
       inventory[randItem] ? inventory[randItem] += randCount : inventory[randItem] = randCount
-      }
     }
+    return ' '
   }
     
-  fillInv();
+  module.exports.fillInv = fillInv;
 
 module.exports.inventory = inventory;
 
@@ -29,12 +28,14 @@ var items ={
     if (inventory['Зелье здоровья'] < 1) delete inventory['Зелье здоровья']
 
     console.log(`Зелье использованно \nHP: ${stats.stats['HP']}`)
+    return ' '
   }
 },
 'Ключ':{
   desc:'Ключ для открытия СУНДУКОВ',
   use(){
     console.log('\nОтличный ключ, но без сундука пользы не имеет\n')
+    return ' '
   }
 },
 'Яд':{
@@ -51,6 +52,7 @@ var items ={
     if (inventory['Яд'] < 1) delete inventory['Яд']
 
     console.log(`Зелье использованно \nHP: ${stats.stats['HP']}`)
+    return ' '
   }
 },
 'Сундучок со снаряжением':{
@@ -60,13 +62,14 @@ var items ={
       console.log(`\n\n\n\n\n\n\n___________________ КОНЦОВКА: "КОВАРНАЯ ЖАДНОСТЬ" \n\n\n\n\n\n\n___________________\n${stats.stats['Имя']} погиб от ловушки, установленной в сундучке`);
       process.exit()
     }
-    let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки! ${stats.stats['HP']}/100 HP\n`);
+    let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!\n`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
+    console.log(`-15 HP: ${stats.stats['HP']}/100`)
+    return ' '
   }
     let fortune = () =>{
     let randItem = Object.keys(equip)[Math.round(Math.random(Object.keys(equip).length) * (Object.keys(equip).length - 1) + 1)-1]
     console.log(`В сундучке лежал ${randItem}.\n`)
-    inventory['Сундучок со снаряжением'] -= 1
     if (!inventory.hasOwnProperty(randItem)) {
     inventory[randItem] = (equip[randItem])
     return `РЮКЗАК: ${randItem} добавлен в рюкзак\n`}
@@ -75,6 +78,7 @@ var items ={
     (Math.round(Math.random(10) * (10 - 1) + 1)) > 5 ? console.log(fortune()) : console.log(unfort());
     inventory['Сундучок со снаряжением'] -= 1
     if (inventory['Сундучок со снаряжением'] < 1) delete inventory['Сундучок со снаряжением']
+    return ' '
   }
 },
 'Сундучок с предметом':{
@@ -86,7 +90,8 @@ var items ={
     }
     let unfort = () =>{console.log(`АЙ! В лицо ${stats.stats['Имя']} брызнули иголки!`);
     (stats.stats['HP'] - 15) > 0 ? stats.stats['HP'] -= 15 : dead();
-    console.log(`- 15 HP / ${stats.stats['HP']}/100\n`)
+    console.log(`-15 HP: ${stats.stats['HP']}/100`)
+    return ' '
   }
     let fortune = () =>{
       let randCount = Math.round(Math.random() * (3 - 1) + 1)
@@ -96,14 +101,16 @@ var items ={
       console.log(`${stats.stats['Имя']} открыл сундучок и нашел там: ${randItem}: ${randCount}!\n`)
       inventory[randItem] ? inventory[randItem] += randCount : inventory[randItem] = randCount
       console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
-      inventory['Сундучок с предметом'] -= 1}
-      return ''
+      }
+      return ' '
       }
       }
 
     (Math.round(Math.random(10) * (10 - 1) + 1)) > 5 ? console.log(fortune()) : console.log(unfort());
     
     if (inventory['Сундучок с предметом'] < 1) delete inventory['Сундучок с предметом']
+inventory['Сундучок с предметом'] -= 1
+    return ' '
   }
 }
 }
@@ -173,7 +180,7 @@ var equip ={
   'Меч создателя':{
     type: 'weapon',
     stt: 71,
-    'Описание': 'Меч с гравиговкой "Спасибо за тест игры"'
+    'Описание': 'Меч с гравировкой "Спасибо за тест игры"'
   },
   'Обычная броня':{
     type: 'armor',
@@ -265,21 +272,19 @@ var useInv = () => {
     if(stats.stats.weapon.name !== 'Пусто') {inventory[stats.stats.weapon.name] = {...equip[stats.stats.weapon.name]}};
     stats.stats.weapon = {name: curItem, stt: equip[curItem].stt}
     console.log(`${curItem} теперь на вашем персонаже`)
+    
     delete inventory[curItem] 
+    return ' '
   }
   else if(equip.hasOwnProperty(curItem) && equip[curItem].type == 'armor') {
     if(stats.stats.armor.name !== 'Пусто') {inventory[stats.stats.armor.name] = {...equip[stats.stats.armor.name]}}
     stats.stats.armor = {name: curItem, stt: equip[curItem].stt}
     console.log(`${curItem} теперь на вашем персонаже`)
     delete inventory[curItem]
+    return ' '
   }
   else if(items.hasOwnProperty(curItem)) items[curItem].use();
-  return ''
+  return ' '
 }
 
 module.exports.useInv = useInv;
-
-
-
-
-

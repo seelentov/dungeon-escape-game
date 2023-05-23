@@ -8,7 +8,8 @@ const randomEnc = ()=>{
     console.log(`${stats.stats['Имя']} пошел в следующую комнату и на его пути возник монстр...\n`);
     let randEnemy = Math.round(Math.random(enemies.length) * (enemies.length - 1) + 1)-1
     let newEnemy = new Fight(...enemies[randEnemy])
-    console.log(newEnemy.startFight())}
+    console.log(newEnemy.startFight())
+    return ' '}
 
 
 var name = readlineSync.question('Чтобы начать игру введите ИМЯ своего ГЕРОЯ и нажмите Enter\n');
@@ -29,18 +30,19 @@ const levels = {
           let randItem = Object.keys(inv.items)[Math.round(Math.random(Object.keys(inv.items).length) * (Object.keys(inv.items).length - 1) + 1)-1]
           console.log(`${stats.stats['Имя']} открыл сундук и нашел там: ${randItem}: ${randCount}! ${stats.stats['Имя']} пошел дальше...\n`)
           inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
-          console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
+          console.log(`РЮКЗАК: +${randCount} ${randItem}\n`);return ' '
   }
   
         const bad = () =>{
+          console.log('\n\n\n\n\n\n\n___________________ КОНЦОВКА: "...ХОРОШО, ЧТО НИКТО НЕ ВИДЕЛ" ___________________\n')
           console.log(`СУНДУК оказался притаившимся мимиком. Одной жертвой этого подземелья стало больше...\n ${yourName} умер!\n`); 
           process.exit()}
           Math.round(Math.random() * (10 - 1) + 1) > 2 ? good() : bad()
-          return ''
+          return ' '
       },
       '2'(){
         Math.round(Math.random() * (10 - 1) + 1) > 2 ? console.log(`${yourName} пошел дальше по коридору..\n`) : randomEnc();
-        return ''
+        return ' '
       }
     }
   },
@@ -59,18 +61,20 @@ const levels = {
         console.log(`\n${yourName} прошел наверх! В этой комнате был сундук!\n`)
         inv.inventory['Ключ'] > 0 ? good() : console.log(`${yourName} к сожалению не имеет ключа от СУНДУКА на данный момент! Грустный он пошел в следующую комнату.\n`);
         inv.inventory['Ключ'] > 0 ? inv.inventory['Ключ'] -= 1 : delete inv.inventory['Ключ']
+        return ' '
       },
       '2'(){
         let randDmg = Math.round(Math.random() * (50 - 35) + 35)
 
         
-        let good = () => {console.log(`${yourName} спустился в подвал\n`);}
+        let good = () => {console.log(`${yourName} спустился в подвал\n`);return ' '}
 
         let bad = () => {console.log(`Лестница в ПОДВАЛ действительно оказалась ненадежной и сломалась под вашим весом. ${yourName} падает на пол.\n`);
         stats.stats['HP'] -= randDmg;
         console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
         if (stats.stats['HP'] < 1) {console.log('\n\n\n\n\n\n\n___________________ КОНЦОВКА: "...ХОРОШО, ЧТО НИКТО НЕ ВИДЕЛ" ___________________\n'); 
-        console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}}
+        console.log('\nВы умерли! Как неаккуратно..\n'); process.exit()}
+        return ' '}
         
         return Math.round(Math.random() * (10 - 1) + 1) > 4 ? good() : bad();
 
@@ -88,10 +92,11 @@ const levels = {
         console.log(`${yourName} открыл сундук и нашли там: ${randItem}: ${randCount}!\n`)
         inv.inventory[randItem] ? inv.inventory[randItem] += randCount : inv.inventory[randItem] = randCount
         console.log(`РЮКЗАК: +${randCount} ${randItem}\n`)
-        return ''}
+        return ' '}
         let bad = () =>{
-          console.log(`${yourName} был очень аккуратен и уже почти забрал ключ. Но в комнату послышались шаги. ${yourName} решает аккуратно уйти, оставляя сундук нетроонутым\n`)
+          console.log(`${yourName} был очень аккуратен и уже почти забрал ключ. Но в комнату послышались шаги. ${yourName} решает аккуратно уйти, оставляя сундук нетронутым\n`)
           if(Math.round(Math.random() * (10 - 1) + 1) > 4) return randomEnc()
+          return ' '
         }
         
         return (Math.random() * (10 - 1) + 1) > 4 ? good():bad()
@@ -115,9 +120,9 @@ const levels = {
         console.log('..но сверху, в связи с движением лески, упало 2 кирпича! Ай!\n');
         stats.stats['HP'] -= randDmg;
         console.log(`-${randDmg} HP. HP: ${stats.stats['HP']}/100\n`);
-        if (stats.stats['HP'] < 1) {console.log('___________________ КОНЦОВКА: "В СЛЕДУЮЩИЙ РАЗ ВОЗЬМУ КАСКУ" ___________________\n');
+        if (stats.stats['HP'] < 1) {console.log('\n\n\n\n\n___________________ КОНЦОВКА: "В СЛЕДУЮЩИЙ РАЗ ВОЗЬМУ КАСКУ" ___________________\n');
         console.log(`\n${yourName} умер! ...от кирпича\n`); process.exit()}
-        return ''}
+        return ' '}
 
         return (Math.random() * (10 - 1) + 1) > 4 ? good():bad()
       }
@@ -137,6 +142,7 @@ const levels = {
       },
       '2'(){
         Math.round(Math.random() * (10 - 1) + 1) > 5 ? console.log(`\nСледующая комната...`) : randomEnc()
+        return ' '
     }
   },
 },
@@ -149,7 +155,7 @@ const levels = {
         let newEnemy = new Fight(...enemies[5])
         newEnemy.startFight()
         console.clear();
-        console.log('___________________ КОНЦОВКА: "ПОБЕГ ИЗ ПОДЗЕМЕЛИЯ" ___________________\n')
+        console.log('\n\n\n\n\n___________________ КОНЦОВКА: "ПОБЕГ ИЗ ПОДЗЕМЕЛИЯ" ___________________\n')
         console.log(`Крушитель был повержен, и уставший ${yourName} уже движется к выходу!\n`)
         console.log('Уверен, у нашего героя все будет хорошо.\n')
         console.log('История окончена, а мне лишь отстается сказать спасибо за тест моей поделки <3\n')
@@ -161,8 +167,10 @@ const levels = {
         crushEnc = () =>{
         let newEnemy = new Fight(...enemies[5])
         console.log(newEnemy.startFight())
+        return ' '
         }
         (Math.random() * (10 - 1) + 1) > 5 ? console.log(`${yourName} убежал от противника, сверкая пятками..и...это было УДАЧНО!\n`) : crushEnc();
+        return ' '
       }
     }
   }
@@ -180,12 +188,12 @@ module.exports = levels;
         let good = () = {
           
 
-          return ""
+          return " "
         }
         let bad = () = {
         
 
-          return ""
+          return " "
         }
         return Math.random() * (10 - 1) + 1) > ... ? good : bad;
       },
@@ -193,12 +201,12 @@ module.exports = levels;
         let good = () = {
           
 
-          return ""
+          return " "
         }
         let bad = () = {
         
 
-          return ""
+          return " "
         }
         return Math.random() * (10 - 1) + 1) > ... ? good : bad;
       }
